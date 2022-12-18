@@ -34,7 +34,31 @@ const cartReducer = (state, action) => {
       totalAmount: updatedTotalAmount
     };
   }
-  // if (action.type === 'REMOVE') {}
+  if (action.type === 'REMOVE') {
+    // 1. find index of the item
+    const existingCartItemIndex = state.items.findIndex(
+      (item) => item.id === action.id
+    );
+    // 2. find the item by the index
+    const existingItem = state.items[existingCartItemIndex];
+    // 3. calculate the new amount after 1 piece of item was deleted
+    const updatedTotalAmount = state.totalAmount - existingItem.price;
+    // 4. define if this is the very last piece of item
+    let updatedItems;
+    if (existingItem.amount === 1) {
+      updatedItems = state.items.filter(item => item.id !== action.id); // a new array without the item w/ this id will be returned
+    } else {
+      const updatedItem = {...existingItem, amount: existingItem.amount - 1};
+      updatedItems = [...state.items];
+      updatedItems[existingCartItemIndex] = updatedItem;
+    }
+
+    return {
+      items: updatedItems,
+      totalAmount: updatedTotalAmount
+    }
+
+  }
   return defaultCartState;
 }
 
