@@ -6,6 +6,7 @@ import classes from './HeaderCartButton.module.css';
 const HeaderCartButton = (props) => {
   const cartCtx = useContext(CartContext); // HeaderCartButton will be evaluated by react each time cartCtx gets updated in CartProvider
 
+  // reduce is a built in method, allows to transform an array of data in a single value = number here
   const numberOfCartItems = cartCtx.items.reduce((curNumber, item) => {
     return curNumber + item.amount;
   }, 0)

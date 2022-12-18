@@ -10,13 +10,13 @@ const cartReducer = (state, action) => {
   if (action.type === 'ADD') {
     // The concat() method is used to merge two or more arrays. This method does not change the existing arrays, but instead returns a new array.
     const updatedItems = state.items.concat(action.item); // update array in an immutable way
-    const updatedTotalAmount = state.totalAmount + state.item.price * state.item.amount;
+    const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
     return {
       items: updatedItems,
       totalAmount: updatedTotalAmount
     };
   }
-  if (action.type === 'ADD') {}
+  // if (action.type === 'REMOVE') {}
   return defaultCartState;
 }
 
